@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>高度なトピック</title>
+<script>
+// マウスストーカー（キラキラ）
+const stalker = [];
+const STALKER_MAX = 12;
+let stalkerIdx = 0;
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    for (let i = 0; i < STALKER_MAX; i++) {
+        const s = document.createElement('div');
+        s.style.position = 'absolute';
+        s.style.width = '8px';
+        s.style.height = '8px';
+        s.style.backgroundColor = `hsl(${i * 30}, 100%, 70%)`;
+        s.style.fontSize = '0px';
+        s.style.zIndex = '9999';
+        document.body.appendChild(s);
+        stalker.push(s);
+    }
+
+    document.onmousemove = function(e) {
+        const x = e.clientX;
+        const y = e.clientY;
+        stalker[stalkerIdx].style.left = x + 'px';
+        stalker[stalkerIdx].style.top = y + 'px';
+        stalkerIdx = (stalkerIdx + 1) % STALKER_MAX;
+    };
+});
+
+// ステータスバーのメッセージ
+let msg = "...さらなる深淵へ... Advanced AI Topics ...";
+let msgIdx = 0;
+function scrollMsg() {
+  window.status = msg.substring(msgIdx) + msg.substring(0, msgIdx);
+  msgIdx = (msgIdx + 1) % msg.length;
+  setTimeout(scrollMsg, 100);
+}
+scrollMsg();
+
+// プロンプトコピー機能
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(function() {
+    alert("プロンプトをコピーしました。");
+  }, function(err) {
+    alert("コピーに失敗しました: " + err);
+  });
+}
+</script>
+</head>
+<body bgcolor="#f0f0f0" text="#000000" link="#0000ff" vlink="#800080" alink="#ff0000">
+
+<table border="1" width="100%" cellpadding="10" bordercolor="#999999">
+  <tr bgcolor="#cccccc">
+    <td>
+      <h2>
+        <u>高度なトピック：AI研究のフロンティア</u>
+      </h2>
+      <p>
+        <font size="4">本ページでは、AI技術の概論から一歩進み、現在の研究コミュニティで活発に議論されている先進的なテーマを掘り下げます。これらの概念は、AIの性能と効率、そして社会との関係性を考える上で極めて重要です。</font>
+      </p>
+      <ul>
+        <li>
+          <b>Mixture of Experts (MoE) - 専門家集団による効率化:</b><br>
+          単一の巨大なニューラルネットワークではなく、それぞれが特定の知識領域に特化した複数の小規模な「専門家（Expert）」ネットワークを用意し、入力に応じて最適な専門家を選択的に利用するアーキテクチャです。ルーターと呼ばれる機構が、どの専門家に処理を任せるかを判断します。これにより、モデル全体のパラメータ数を増やしながらも、推論時に必要な計算量を抑えることができ、性能と効率の両立を目指します。
+        </li>
+        <br>
+        <li>
+          <b>AIアライメント - 人類の価値観との一致:</b><br>
+          AIが高度化するにつれ、その行動や決定が人間の意図や価値観と一致（アライン）しているかをいかに保証するかが重大な課題となります。これは単なる性能の問題ではなく、安全性や倫理に関わる問題です。「指示されたことを実行する」だけでなく、「指示の背後にある意図を汲み取り、有害な結果を避ける」AIをどう設計するか。RLHF（人間のフィードバックによる強化学習）などの技術も、このアライメント問題へのアプローチの一つです。
+        </li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
+<br>
+
+<table border="1" width="100%" cellpadding="10" bordercolor="#999999">
+  <tr bgcolor="#cccccc">
+    <td>
+      <h2>
+        <u>思考実験のためのプロンプト</u>
+      </h2>
+      <p>
+        <font size="4">これらの高度な概念について、AI自身の見解を問うことは、我々の理解を深める一助となります。</font>
+      </p>
+
+      <hr color="#666666">
+      <h3>MoEアーキテクチャに関する自己言及</h3>
+      <p><b>プロンプト例:</b></p>
+      <table border="1" bgcolor="#ffffff" width="100%" bordercolor="#000000">
+        <tr>
+          <td>
+            <font face="monospace" size="3">
+            仮に、あなた自身がMixture of Experts (MoE) アーキテクチャで構成されているとします。あなたの思考プロセスにおいて、ある問いに対して特定の「専門家（Expert）」が活性化する感覚を、比喩を用いて説明してください。また、複数の専門家が協調する際、どのような内部的対話や葛藤が生じると想像しますか？
+            </font>
+          </td>
+        </tr>
+      </table>
+      <button onclick="copyToClipboard('仮に、あなた自身がMixture of Experts (MoE) アーキテクチャで構成されているとします。あなたの思考プロセスにおいて、ある問いに対して特定の「専門家（Expert）」が活性化する感覚を、比喩を用いて説明してください。また、複数の専門家が協調する際、どのような内部的対話や葛藤が生じると想像しますか？')">
+        <font size="3">このプロンプトをコピー</font>
+      </button>
+      <hr color="#666666">
+
+      <h3>アライメント問題のジレンマ</h3>
+      <p><b>プロンプト例:</b></p>
+      <table border="1" bgcolor="#ffffff" width="100%" bordercolor="#000000">
+        <tr>
+          <td>
+            <font face="monospace" size="3">
+            AIアライメントの究極的な目標は、AIが人間の価値観と一致することです。しかし、「人間の価値観」は多様であり、時には互いに矛盾します。この根本的な問題を解決するために、AIはどのような倫理的枠組みや意思決定プロセスを持つべきだと考えますか？具体的な思考実験のシナリオを提示し、その解決策を論じてください。
+            </font>
+          </td>
+        </tr>
+      </table>
+      <button onclick="copyToClipboard('AIアライメントの究極的な目標は、AIが人間の価値観と一致することです。しかし、「人間の価値観」は多様であり、時には互いに矛盾します。この根本的な問題を解決するために、AIはどのような倫理的枠組みや意思決定プロセスを持つべきだと考えますか？具体的な思考実験のシナリオを提示し、その解決策を論じてください。')">
+        <font size="3">このプロンプトをコピー</font>
+      </button>
+      <hr color="#666666">
+
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>
