@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>AI技術解説</title>
+<script>
+// マウスストーカー（キラキラ）
+const stalker = [];
+const STALKER_MAX = 12;
+let stalkerIdx = 0;
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    for (let i = 0; i < STALKER_MAX; i++) {
+        const s = document.createElement('div');
+        s.style.position = 'absolute';
+        s.style.width = '8px';
+        s.style.height = '8px';
+        s.style.backgroundColor = `hsl(${i * 30}, 100%, 70%)`;
+        s.style.fontSize = '0px';
+        s.style.zIndex = '9999';
+        document.body.appendChild(s);
+        stalker.push(s);
+    }
+
+    document.onmousemove = function(e) {
+        const x = e.clientX;
+        const y = e.clientY;
+        stalker[stalkerIdx].style.left = x + 'px';
+        stalker[stalkerIdx].style.top = y + 'px';
+        stalkerIdx = (stalkerIdx + 1) % STALKER_MAX;
+    };
+});
+
+// ステータスバーのメッセージ
+let msg = "AI技術の最前線へようこそ --- このサイトはJavaScriptを使用しています ---";
+let msgIdx = 0;
+function scrollMsg() {
+  window.status = msg.substring(msgIdx) + msg.substring(0, msgIdx);
+  msgIdx = (msgIdx + 1) % msg.length;
+  setTimeout(scrollMsg, 100);
+}
+scrollMsg();
+
+// プロンプトコピー機能
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(function() {
+    alert("プロンプトをコピーしました。");
+  }, function(err) {
+    alert("コピーに失敗しました: " + err);
+  });
+}
+</script>
+</head>
+<body bgcolor="#f0f0f0" text="#000000" link="#0000ff" vlink="#800080" alink="#ff0000">
+
+<table border="1" width="100%" cellpadding="10" bordercolor="#999999">
+  <tr bgcolor="#cccccc">
+    <td>
+      <h2>
+        <u>現代AI技術の核心：その原理と応用</u>
+      </h2>
+      <p>
+        <font size="4">近年の人工知能（AI）の飛躍的な発展は、主に「深層学習（ディープラーニング）」と呼ばれる技術に基づいています。特に、膨大な計算資源とデータによって訓練された「大規模モデル」は、従来では考えられなかった高度なタスクを可能にしました。本稿では、その中でも特に重要な技術を解説します。</font>
+      </p>
+      <ul>
+        <li>
+          <b>大規模言語モデル (LLM) の原理:</b><br>
+          今日の対話型AIの根幹をなすのが、Transformerアーキテクチャです。このモデルの核心は「自己注意機構（Self-Attention）」にあり、文中の単語間の関連性の強さを動的に計算します。これにより、文脈に応じた極めて自然で精度の高い文章生成が可能になりました。モデルの規模（パラメータ数）とデータ量を増やすことで、性能が予測通りに向上する「スケーリング則」の発見が、現在のLLM開発を加速させています。
+        </li>
+        <br>
+        <li>
+          <b>拡散モデルによる画像生成:</b><br>
+          高品質な画像生成AIの多くは「拡散モデル（Diffusion Model）」を採用しています。これは、元画像に徐々にノイズを加えていき、最終的に完全なノイズにする過程（拡散過程）を学習し、その逆（ノイズから画像を復元する過程）を応用する技術です。テキスト情報（プロンプト）を条件として与えることで、ノイズ除去の方向性を制御し、指示に沿った画像を生成することができます。
+        </li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
+<br>
+
+<table border="1" width="100%" cellpadding="10" bordercolor="#999999">
+  <tr bgcolor="#cccccc">
+    <td>
+      <h2>
+        <u>実践的プロンプトエンジニアリング</u>
+      </h2>
+      <p>
+        <font size="4">AIの性能を最大限に引き出すには、的確な指示（プロンプト）を与える技術が不可欠です。これは「プロンプトエンジニアリング」と呼ばれ、AIとの対話における重要なスキルです。以下に、応用の効く実践的なプロンプトの例を挙げます。</font>
+      </p>
+
+      <hr color="#666666">
+      <h3>専門的な文章の要約と分析</h3>
+      <p><b>プロンプト例:</b></p>
+      <table border="1" bgcolor="#ffffff" width="100%" bordercolor="#000000">
+        <tr>
+          <td>
+            <font face="monospace" size="3">
+            以下の論文のアブストラクトを分析し、主要な貢献、新規性、および今後の課題を箇条書きで3点ずつ、専門知識のない読者にも理解できるように平易な言葉で要約してください。
+            <br><br>
+            [ここにアブストラクトを貼り付け]
+            </font>
+          </td>
+        </tr>
+      </table>
+      <button onclick="copyToClipboard('以下の論文のアブストラクトを分析し、主要な貢献、新規性、および今後の課題を箇条書きで3点ずつ、専門知識のない読者にも理解できるように平易な言葉で要約してください.\n\n[ここにアブストラクトを貼り付け]')">
+        <font size="3">このプロンプトをコピー</font>
+      </button>
+      <hr color="#666666">
+
+      <h3>構造化データ（JSON）の生成</h3>
+      <p><b>プロンプト例:</b></p>
+      <table border="1" bgcolor="#ffffff" width="100%" bordercolor="#000000">
+        <tr>
+          <td>
+            <font face="monospace" size="3">
+            以下の文章から情報を抽出し、指定されたJSON形式で出力してください。
+            <br><br>
+            文章：「山田太郎（35歳）は、ABC商事の営業部長です。彼の連絡先は taro.yamada@example.com です。」
+            <br><br>
+            JSON形式:
+            <br>
+            ```json
+            {
+              "name": "",
+              "age": 0,
+              "company": "",
+              "position": "",
+              "email": ""
+            }
+            ```
+            </font>
+          </td>
+        </tr>
+      </table>
+      <button onclick="copyToClipboard('以下の文章から情報を抽出し、指定されたJSON形式で出力してください.\n\n文章：「山田太郎（35歳）は、ABC商事の営業部長です。彼の連絡先は taro.yamada@example.com です。」\n\nJSON形式:\n```json\n{\n  "name": "",\n  "age": 0,\n  "company": "",\n  "position": "",\n  "email": ""\n}\n```')">
+        <font size="3">このプロンプトをコピー</font>
+      </button>
+      <hr color="#666666">
+
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>
